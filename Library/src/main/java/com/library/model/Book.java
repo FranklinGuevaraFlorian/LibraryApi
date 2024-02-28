@@ -1,5 +1,6 @@
 package com.library.model;
 
+import com.library.DTO.create.CreateDTOBook;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,4 +33,15 @@ public class Book {
     private int numberOfBooks;
     @Column(nullable = false)
     private double price;
+
+    public Book(CreateDTOBook book) {
+        this.tittle = book.tittle();
+        this.author = book.author();
+        this.ISBN = book.ISBN();
+        this.editoral = book.editoral();
+        this.yearOfPublication = book.yearOfPublication();
+        this.gender = book.gender();
+        this.numberOfBooks = book.numberOfBooks();
+        this.price = book.price();
+    }
 }

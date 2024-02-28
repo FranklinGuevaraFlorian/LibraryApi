@@ -17,7 +17,11 @@ public class BookService implements InterfaceBookCRUD {
 
     @Override
     public Book createBook(CreateDTOBook book) {
-        return null;
+        var consultBook = findBookForTitte(book.tittle());
+        if( consultBook != null){
+            return this.bookRepository.save(new Book(book));
+        }
+        return consultBook;
     }
 
     @Override
@@ -32,6 +36,6 @@ public class BookService implements InterfaceBookCRUD {
 
     @Override
     public Book findBookForTitte(String tittle) {
-        return null;
+        return this.bookRepository.getReferenceByTittle(tittle);
     }
 }
