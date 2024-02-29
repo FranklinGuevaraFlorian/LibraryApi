@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository extends JpaRepository<Book,Long> {
     Book getReferenceByTittle(String tittle);
+    Boolean deleteByTittle(String tittle);
 }
