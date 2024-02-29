@@ -1,6 +1,7 @@
 package com.library.serviceImplemtation;
 
 import com.library.DTO.create.CreateDTOBook;
+import com.library.DTO.create.UpdateDTOBook;
 import com.library.model.Book;
 import com.library.repository.BookRepository;
 import com.library.serviceInterface.InterfaceBookCRUD;
@@ -17,11 +18,11 @@ public class BookService implements InterfaceBookCRUD {
 
     @Override
     public Book createBook(CreateDTOBook book) {
-        var consultBook = findBookForTitte(book.tittle());
-        if( consultBook != null){
-            return this.bookRepository.save(new Book(book));
+        boolean consultBook = findBookForTitte(book.tittle());
+        if (consultBook){
+            return null;
         }
-        return consultBook;
+        return this.bookRepository.save(new Book(book));
     }
 
     @Override
@@ -30,12 +31,21 @@ public class BookService implements InterfaceBookCRUD {
     }
 
     @Override
-    public Book updateBookByTittle(CreateDTOBook book) {
+    public Book updateBookByTittle(UpdateDTOBook book) {
+        boolean referenceBook = findBookForTitte(book.tittle());
+        //validar si el objeto que paso es igual al guardado
+        if(referenceBook){
+            var bookReplace = this.bookRepository.getReferenceByTittle(book.tittle());
+            bookReplace = bookReplace.updateBook(book);
+            return bookReplace;
+        }
         return null;
     }
 
     @Override
-    public Book findBookForTitte(String tittle) {
-        return this.bookRepository.getReferenceByTittle(tittle);
+    public Boolean findBookForTitte(String tittle) {
+        var referenceBook = this.bookRepository.getReferenceByTittle(tittle);
+        return referenceBook != null;
     }
+
 }

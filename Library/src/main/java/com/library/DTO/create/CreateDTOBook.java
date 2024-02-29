@@ -2,6 +2,7 @@ package com.library.DTO.create;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -10,10 +11,10 @@ public record CreateDTOBook(
         @NotBlank String author,
         @NotBlank String ISBN,
         @NotBlank String editoral,
-        @NotBlank LocalDate yearOfPublication,
+        @NotNull LocalDate yearOfPublication,
         @NotBlank String gender,
-        @NotBlank int numberOfBooks,
-        @NotBlank double price
+        @NotNull Integer numberOfBooks,
+        @NotNull Double price
 
 ) {
 }
